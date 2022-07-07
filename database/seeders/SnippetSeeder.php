@@ -11,6 +11,6 @@ class SnippetSeeder extends Seeder
     public function run()
     {
         $users = User::all();
-        $users->each(fn (User $user) => Snippet::factory(10)->for($user)->create());
+        $users->each(fn (User $user) => Snippet::factory(10)->create(['user_id' => $user->id]));
     }
 }
