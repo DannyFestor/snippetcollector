@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\RelationManagers;
+namespace App\Filament\Resources\SnippetResource\RelationManagers;
 
+use App\Models\Tag;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SnippetsRelationManager extends RelationManager
+class TagsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'snippets';
+    protected static string $relationship = 'tags';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -30,22 +32,22 @@ class SnippetsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('title'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\AttachAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->url(fn(Tag $record) => route('filament.resources.tags.edit', $record->id))
+                ,
+                Tables\Actions\DetachAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DetachBulkAction::make(),
             ]);
     }
 }

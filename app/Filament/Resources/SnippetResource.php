@@ -4,15 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SnippetResource\Pages;
 use App\Filament\Resources\SnippetResource\RelationManagers;
-use App\Filament\Resources\UserResource\RelationManagers\UserRelationManager;
 use App\Models\Snippet;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SnippetResource extends Resource
 {
@@ -68,7 +65,8 @@ class SnippetResource extends Resource
     public static function getRelations(): array
     {
         return [
-            UserRelationManager::class,
+            RelationManagers\UserRelationManager::class,
+            RelationManagers\TagsRelationManager::class,
         ];
     }
 
