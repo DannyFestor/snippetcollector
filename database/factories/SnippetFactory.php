@@ -15,6 +15,7 @@ class SnippetFactory extends Factory
         return [
             'user_id' => User::factory(),
             'title' => $this->faker->words(asText: true),
+            'description' => $this->faker->paragraphs(3, true),
         ];
     }
 }

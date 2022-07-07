@@ -28,6 +28,11 @@ class SnippetResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\MarkdownEditor::make('description')
+                    ->required(),
+                Forms\Components\Textarea::make('example'),
+                Forms\Components\Textarea::make('scripts'),
+                Forms\Components\Textarea::make('styles'),
             ]);
     }
 
