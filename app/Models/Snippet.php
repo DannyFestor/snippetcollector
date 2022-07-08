@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,13 +22,30 @@ class Snippet extends Model
         'example',
         'scripts',
         'styles',
+        'published_at',
     ];
 
-    protected function markdownDescription(): Attribute
+    protected $casts = [
+        'published_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    protected function markdownDescription() : Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => (new CommonMarkConverter())->convert($attributes['description']),
+            get: fn($value, $attributes) => (new CommonMarkConverter())->convert($attributes[ 'description' ]),
         );
+    }
+
+    public function scopePublished(Builder $query)
+    {
+        return $query
+            ->where(function (Builder $query) {
+                $query
+                    ->whereNotNull('snippets.published_at')
+                    ->orWhere('snippets.published_at', '<', now());
+            });
     }
 
     /**

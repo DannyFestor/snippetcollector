@@ -10,6 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 
 class SnippetResource extends Resource
 {
@@ -33,6 +34,7 @@ class SnippetResource extends Resource
                 Forms\Components\Textarea::make('example'),
                 Forms\Components\Textarea::make('scripts'),
                 Forms\Components\Textarea::make('styles'),
+                Forms\Components\DateTimePicker::make('published_at'),
             ]);
     }
 
@@ -45,6 +47,9 @@ class SnippetResource extends Resource
                     ->sortable()
                     ->searchable()
                 ,
+                Tables\Columns\TextColumn::make('published_at')
+                    ->sortable()
+                    ->dateTime(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->sortable()
                     ->dateTime(),
@@ -57,6 +62,20 @@ class SnippetResource extends Resource
                     ->label('User')
                     ->relationship('user', 'email')
                     ->searchable()
+                ,
+                Tables\Filters\TernaryFilter::make('is_published')
+                    ->label('Is Published')
+
+                    ->placeholder('All Snippets')
+                    ->trueLabel('Only Published')
+                    ->falseLabel('Only Unpublished')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('snippets.published_at'),
+                        false: fn (Builder $query) => $query
+                            ->whereNull('snippets.published_at')
+                            ->orWhere('snippets.published_at', '<=', now())
+                        ,
+                    )
                 ,
             ])
             ->actions([

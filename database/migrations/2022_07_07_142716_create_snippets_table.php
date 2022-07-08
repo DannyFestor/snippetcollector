@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->text('example')->nullable()->comment('code that is executed on page');
             $table->string('scripts')->nullable();
             $table->string('styles')->nullable();
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
     }

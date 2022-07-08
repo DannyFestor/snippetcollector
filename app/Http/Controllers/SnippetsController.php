@@ -14,6 +14,7 @@ class SnippetsController extends Controller
     {
         $snippets = Snippet::query()
             ->with(['tags'])->select(['id', 'title', 'description'])
+            ->published()
             ->paginate();
 
         return view('snippets.index', compact('snippets'));
@@ -21,6 +22,9 @@ class SnippetsController extends Controller
 
     public function show(Snippet $snippet)
     {
+        if (!$snippet->published_at || $snippet->published_at->lt(now())) {
+            abort(404);
+        }
         return view('snippets.show', compact('snippet'));
     }
 }
