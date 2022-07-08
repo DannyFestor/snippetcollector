@@ -12,12 +12,7 @@ class SnippetsController extends Controller
 {
     public function index()
     {
-        $snippets = Snippet::query()
-            ->with(['tags'])->select(['id', 'title', 'description'])
-            ->published()
-            ->paginate();
-
-        return view('snippets.index', compact('snippets'));
+        return view('snippets.index');
     }
 
     public function show(Snippet $snippet)
