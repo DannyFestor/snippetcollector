@@ -13,8 +13,13 @@ class Index extends Component
 {
     use WithPagination;
 
-    public ?int $tag = null;
+    public ?string $tag = null;
     public array $tags = [];
+
+    protected $queryString = [
+        'tag' => ['except' => ['']],
+        'page' => ['except' => 1],
+    ];
 
     public function mount()
     {
@@ -26,13 +31,13 @@ class Index extends Component
         $snippets = Snippet::query()
             ->with(['tags'])->select(['id', 'title', 'description'])
 //            ->published()
-            ->when($this->tag, function (Builder $query, int $value) {
+            ->when($this->tag, function (Builder $query, string $value) {
                 $query->whereHas('tags', function (Builder $query) use ($value) {
-                    $query->where('tags.id', '=', $value);
+                    $query->where('tags.title', '=', $value);
                 });
             })
             ->paginate();
-        $selectedTag = collect($this->tags)->first(fn($tag) => $tag['id'] === $this->tag);
+        $selectedTag = collect($this->tags)->first(fn($tag) => $tag['title'] === $this->tag);
 
         return view('livewire.snippets.index', compact('snippets', 'selectedTag'));
     }

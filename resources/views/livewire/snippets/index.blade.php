@@ -22,7 +22,7 @@
             </a>
             <div class="flex justify-evenly gap-2 flex-wrap p-2 border-b border-slate-200 rounded">
                 @foreach($snippet->tags as $tag)
-                    <x-tags.display wire:click="$set('tag', {{ $tag->id }});"
+                    <x-tags.display wire:click="$set('tag', '{{ $tag->title }}');"
                                     :color="$tag->color"
                                     :bgcolor="$tag->bgcolor"
                                     :bordercolor="$tag->bordercolor">
