@@ -30,7 +30,7 @@ class Index extends Component
     {
         $snippets = Snippet::query()
             ->with(['tags'])->select(['id', 'title', 'description'])
-//            ->published()
+            ->published()
             ->when($this->tag, function (Builder $query, string $value) {
                 $query->whereHas('tags', function (Builder $query) use ($value) {
                     $query->where('tags.title', '=', $value);
