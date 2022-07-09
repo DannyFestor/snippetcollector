@@ -17,7 +17,7 @@ class SnippetsController extends Controller
 
     public function show(Snippet $snippet)
     {
-        if (!$snippet->published_at || $snippet->published_at->lt(now())) {
+        if (!$snippet->published_at || $snippet->published_at->gt(now())) {
             abort(404);
         }
         return view('snippets.show', compact('snippet'));

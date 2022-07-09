@@ -6,6 +6,7 @@ use App\Models\Snippet;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,10 +15,12 @@ class Index extends Component
     use WithPagination;
 
     public ?string $tag = null;
+    public string $search = '';
     public array $tags = [];
 
     protected $queryString = [
-        'tag' => ['except' => ['']],
+        'tag' => ['except' => ''],
+        'search' => ['except' => ''],
         'page' => ['except' => 1],
     ];
 
@@ -29,13 +32,18 @@ class Index extends Component
     public function render()
     {
         $snippets = Snippet::query()
-            ->with(['tags'])->select(['id', 'title', 'description'])
+            ->with(['tags', 'user:id,name,email'])
+            ->select(['id', 'user_id', 'title', 'description', 'published_at'])
             ->published()
+            ->when($this->search, function (Builder $query, string $value) {
+                $query->whereRaw('LOWER(snippets.title) like ?', Str::lower("%{$value}%"));
+            })
             ->when($this->tag, function (Builder $query, string $value) {
                 $query->whereHas('tags', function (Builder $query) use ($value) {
                     $query->where('tags.title', '=', $value);
                 });
             })
+            ->orderBy('snippets.published_at', 'desc')
             ->paginate();
         $selectedTag = collect($this->tags)->first(fn($tag) => $tag['title'] === $this->tag);
 
