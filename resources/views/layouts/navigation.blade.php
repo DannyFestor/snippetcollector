@@ -5,8 +5,11 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                    <a href="{{ route('dashboard') }}"
+                       class="group block relative flex justify-center items-center min-w-[135px] rounded bg-slate-800 px-4 py-2"
+                    >
+                        <div class="text-3xl font-bold text-slate-100 transition-all group-hover:-translate-y-2">SC</div>
+                        <div class="absolute text-slate-100 bottom-0 -translate-y-1/2 transition left-1/2 opacity-0 -translate-x-1/2 scale-0 group-hover:-translate-y-1 group-hover:opacity-100 group-hover:scale-100">SnippetCollector</div>
                     </a>
                 </div>
 
@@ -14,6 +17,10 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('snippets.index')" :active="request()->routeIs('snippets.*')">
+                        {{ __('Snippets') }}
                     </x-nav-link>
                 </div>
             </div>

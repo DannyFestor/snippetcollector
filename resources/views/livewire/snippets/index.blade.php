@@ -1,12 +1,12 @@
 <div class="p-6 bg-white border-b border-gray-200 flex flex-col gap-4">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
         <label x-data="{ search: @entangle('search') }" class="flex items-center gap-4">
             Search
             <input x-model.debounce.500ms="search"
                    type="search"
                    placeholder="title"
                    aria-placeholder="Search title"
-                   class="rounded bg-slate-100 focus:bg-white focus:ring-0 border-2 border-slate-500 focus:border-blue-700 transition focus:scale-105"
+                   class="flex-1 sm:flex-auto rounded bg-slate-100 focus:bg-white focus:ring-0 border-2 border-slate-500 focus:border-blue-700 transition focus:scale-105"
             >
         </label>
 
