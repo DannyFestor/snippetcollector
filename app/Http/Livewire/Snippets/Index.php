@@ -14,7 +14,7 @@ class Index extends Component
 {
     use WithPagination;
 
-    public ?string $tag = null;
+    public string $tag = '';
     public string $search = '';
     public array $tags = [];
 

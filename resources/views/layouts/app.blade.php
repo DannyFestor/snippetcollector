@@ -20,7 +20,7 @@
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main>
+            <main class="text-slate-700">
                 {{ $slot }}
             </main>
         </div>
