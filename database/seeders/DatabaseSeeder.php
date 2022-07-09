@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             SnippetSeeder::class,
             TagSeeder::class,
             SnippetTagSeeder::class,
+            FileSeeder::class,
         ]);
     }
 }

@@ -21,16 +21,23 @@
                 Example</x-snippets.tab-button>
         </div>
 
-        <div x-show="activeTab === 1" x-collapse class="prose mx-auto line-numbers">
+        <div x-show="activeTab === 1" x-cloak x-collapse class="prose mx-auto line-numbers">
             {!! $snippet->markdown_description !!}
         </div>
-        <div x-show="activeTab === 2" x-collapse class="prose line-numbers">
+        <div x-show="activeTab === 2" x-cloak x-collapse class="prose mx-auto line-numbers">
             Video
         </div>
-        <div x-show="activeTab === 3" x-collapse class="prose line-numbers">
-            Code
+        <div x-show="activeTab === 3" x-cloak x-collapse class="mx-auto w-full flex flex-col gap-2">
+            @foreach($snippet->files as $file)
+                <div x-data="{ open: false }" class="prose mx-auto line-numbers w-full flex flex-col">
+                    <div @click="open = !open" class="rounded border border-slate-400 hover:bg-slate-200 transition px-4 py-2 cursor-pointer">{{ $file->filename }}</div>
+                    <div x-show="open" x-cloak x-collapse>
+                        {!! $file->markdown_code !!}
+                    </div>
+                </div>
+            @endforeach
         </div>
-        <div x-show="activeTab === 4" x-collapse class="prose line-numbers">
+        <div x-show="activeTab === 4" x-cloak x-collapse class="prose mx-auto line-numbers">
             Example
         </div>
 

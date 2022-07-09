@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Snippet;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\MarkdownConverter;
@@ -20,6 +21,9 @@ class SnippetsController extends Controller
         if (!$snippet->published_at || $snippet->published_at->gt(now())) {
             abort(404);
         }
+        $snippet->load(['files' => function (HasMany $query) {
+            $query->orderBy('files.filename');
+        }]);
         return view('snippets.show', compact('snippet'));
     }
 }

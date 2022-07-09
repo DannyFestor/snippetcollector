@@ -89,8 +89,9 @@ class SnippetResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\UserRelationManager::class,
+            RelationManagers\FilesRelationManager::class,
             RelationManagers\TagsRelationManager::class,
+            RelationManagers\UserRelationManager::class,
         ];
     }
 

@@ -27,13 +27,12 @@
     <div>
         @if($tag && $selectedTag)
             <div>Selected Tag:
-                <x-tags.display wire:click="$set('tag', null);"
+                <x-tags.display wire:click="$set('tag', '');"
                                 :color="$selectedTag['color']"
                                 :bgcolor="$selectedTag['bgcolor']"
                                 :bordercolor="$selectedTag['bordercolor']">
                     {{ $selectedTag['title'] }}
                 </x-tags.display>
-
             </div>
         @endif
     </div>
