@@ -32,8 +32,10 @@ class SnippetResource extends Resource
                 Forms\Components\MarkdownEditor::make('description')
                     ->required(),
                 Forms\Components\Textarea::make('example'),
-                Forms\Components\Textarea::make('scripts'),
-                Forms\Components\Textarea::make('styles'),
+                Forms\Components\Textarea::make('scripts')
+                    ->hint('Additional scripts if needed'),
+                Forms\Components\Textarea::make('styles')
+                    ->hint('Additional styles if needed'),
                 Forms\Components\DateTimePicker::make('published_at'),
             ]);
     }
@@ -65,7 +67,6 @@ class SnippetResource extends Resource
                 ,
                 Tables\Filters\TernaryFilter::make('is_published')
                     ->label('Is Published')
-
                     ->placeholder('All Snippets')
                     ->trueLabel('Only Published')
                     ->falseLabel('Only Unpublished')

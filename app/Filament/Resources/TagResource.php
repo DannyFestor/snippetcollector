@@ -26,13 +26,20 @@ class TagResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->reactive()
+                ,
                 Forms\Components\ColorPicker::make('color')
-                    ->hex(),
+                    ->hex()
+                    ->reactive(),
                 Forms\Components\ColorPicker::make('bgcolor')
-                    ->hex(),
+                    ->hex()
+                    ->reactive(),
                 Forms\Components\ColorPicker::make('bordercolor')
-                    ->hex(),
+                    ->hex()
+                    ->reactive(),
+                Forms\Components\ViewField::make('preview')
+                    ->view('filament.forms.components.color-preview')
             ]);
     }
 
@@ -43,7 +50,7 @@ class TagResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->formatStateUsing(fn($state, Tag $record) => new HtmlString(
                         <<<HTML
-                    <span style="color: $record->color; background-color: $record->bgcolor; border: 1px solid $record->bordercolor">$state</span>
+                    <span class="rounded px-2 py-1" style="color: $record->color; background-color: $record->bgcolor; border: 1px solid $record->bordercolor">$state</span>
                     HTML
                     ))
                     ->sortable()
