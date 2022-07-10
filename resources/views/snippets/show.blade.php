@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Snippets') }} - {{ $snippet->title }}
-        </h2>
-    </x-slot>
-
     <div x-data="{ activeTab: 1 }" class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col space-y-4 mt-4">
         <div class="grid grid-cols-4">
             <x-snippets.tab-button @click="activeTab = 1"

@@ -15,15 +15,13 @@
         @stack('styles')
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-white">
-            @include('layouts.navigation')
+    <body class="font-sans antialiased flex flex-col min-h-screen">
+        @include('layouts.navigation')
 
-            <!-- Page Content -->
-            <main class="text-slate-700">
-                {{ $slot }}
-            </main>
-        </div>
+        <!-- Page Content -->
+        <main class="relative text-slate-700 pt-20 flex-1 flex flex-col bg-slate-50">
+            {{ $slot }}
+        </main>
 
         @stack('scripts')
         @livewireScripts
