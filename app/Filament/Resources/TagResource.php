@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
@@ -24,22 +25,34 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255)
-                    ->reactive()
+                Forms\Components\Section::make('Title')
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(table: 'tags', column: 'title', ignorable: fn(?Model $record) : ?Model => $record)
+                            ->reactive()
+                        ,
+                        Forms\Components\ViewField::make('preview')
+                            ->view('filament.forms.components.color-preview'),
+                        Forms\Components\FileUpload::make('logo'),
+                    ])
+                    ->columns(3)
                 ,
-                Forms\Components\ColorPicker::make('color')
-                    ->hex()
-                    ->reactive(),
-                Forms\Components\ColorPicker::make('bgcolor')
-                    ->hex()
-                    ->reactive(),
-                Forms\Components\ColorPicker::make('bordercolor')
-                    ->hex()
-                    ->reactive(),
-                Forms\Components\ViewField::make('preview')
-                    ->view('filament.forms.components.color-preview')
+                Forms\Components\Section::make('colors')
+                    ->schema([
+                        Forms\Components\ColorPicker::make('color')
+                            ->hex()
+                            ->reactive(),
+                        Forms\Components\ColorPicker::make('bgcolor')
+                            ->hex()
+                            ->reactive(),
+                        Forms\Components\ColorPicker::make('bordercolor')
+                            ->hex()
+                            ->reactive(),
+                    ])
+                    ->columns(3)
+                ,
             ]);
     }
 

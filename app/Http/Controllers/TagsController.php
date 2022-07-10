@@ -9,6 +9,7 @@ class TagsController extends Controller
 {
     public function index()
     {
+        return view('tags.index');
     }
 
     public function show(Tag $tag)

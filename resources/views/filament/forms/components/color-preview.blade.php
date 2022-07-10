@@ -8,7 +8,7 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div x-data="{ state: $wire.entangle('data') }">
+    <div x-data="{ state: $wire.entangle('data') }" style="margin-top:1rem">
         <span x-text="state.title"
               class="rounded text-xs px-2 py-1"
               :style="{ 'color': state.color, 'background-color': state.bgcolor, 'border': '1px solid ' + state.bordercolor }"></span>

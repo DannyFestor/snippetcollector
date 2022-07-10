@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->string('color')->nullable();
             $table->string('bgcolor')->nullable();
             $table->string('bordercolor')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

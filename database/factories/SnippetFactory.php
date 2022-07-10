@@ -16,6 +16,7 @@ class SnippetFactory extends Factory
             'user_id' => User::factory(),
             'title' => $this->faker->words(asText: true),
             'description' => $this->faker->paragraphs(3, true),
+            'published_at' => random_int(0, 1) === 1 ? $this->faker->dateTimeBetween('-1 year') : null,
         ];
     }
 }

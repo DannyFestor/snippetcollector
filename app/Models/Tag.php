@@ -15,7 +15,17 @@ class Tag extends Model
         'color',
         'bgcolor',
         'bordercolor',
+        'logo',
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($tag) {
+            if ($tag->logo) {
+                \Illuminate\Support\Facades\File::delete(storage_path("app/public/{$tag->logo}"));
+            }
+        });
+    }
 
     /**
      * @return BelongsToMany
