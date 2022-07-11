@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div x-data="{ activeTab: 1 }" class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col space-y-4 mt-4">
+    <div x-data="{ activeTab: 1 }" class="max-w-7xl w-full mx-auto sm:px-6 lg:px-8 flex flex-col space-y-4 mt-4">
         <div class="grid grid-cols-4">
             <x-snippets.tab-button @click="activeTab = 1"
                                    x-bind:class="{ 'bg-slate-400 text-white': (activeTab === 1) }">
@@ -15,13 +15,13 @@
                 Example</x-snippets.tab-button>
         </div>
 
-        <div x-show="activeTab === 1" x-cloak x-collapse class="prose mx-auto line-numbers">
+        <div x-show="activeTab === 1" x-cloak x-collapse class="prose w-full mx-auto line-numbers">
             {!! $snippet->markdown_description !!}
         </div>
-        <div x-show="activeTab === 2" x-cloak x-collapse class="prose mx-auto line-numbers">
+        <div x-show="activeTab === 2" x-cloak x-collapse class="prose w-full mx-auto line-numbers">
             Video
         </div>
-        <div x-show="activeTab === 3" x-cloak x-collapse class="mx-auto w-full flex flex-col gap-2">
+        <div x-show="activeTab === 3" x-cloak x-collapse class="w-full mx-auto w-full flex flex-col gap-2">
             @foreach($snippet->files as $file)
                 <div x-data="{ open: false }" class="prose mx-auto line-numbers w-full flex flex-col">
                     <div @click="open = !open" class="rounded border border-slate-400 hover:bg-slate-200 transition px-4 py-2 cursor-pointer">{{ $file->filename }}</div>
@@ -31,7 +31,7 @@
                 </div>
             @endforeach
         </div>
-        <div x-show="activeTab === 4" x-cloak x-collapse class="prose mx-auto line-numbers">
+        <div x-show="activeTab === 4" x-cloak x-collapse class="prose w-full mx-auto line-numbers">
             Example
         </div>
 

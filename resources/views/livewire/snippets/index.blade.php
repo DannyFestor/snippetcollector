@@ -40,7 +40,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         @foreach($snippets as $snippet)
             <a href="{{ route('snippets.show', $snippet) }}"
-               class="block flex flex-col gap-2 md:col-span-2 lg:col-span-3 p-2 border-b border-slate-200 hover:bg-slate-200 transition-colors rounded"
+               class="block flex flex-col gap-2 md:col-span-2 lg:col-span-3 p-2 border-b border-slate-200 hover:bg-slate-200 transition rounded hover:scale-105 hover:shadow-xl hover:-rotate-1"
             >
                 <div class="font-bold">
                     {{$snippet->title}}
@@ -54,7 +54,9 @@
                     <x-tags.display wire:click="$set('tag', '{{ $tag->title }}');"
                                     :color="$tag->color"
                                     :bgcolor="$tag->bgcolor"
-                                    :bordercolor="$tag->bordercolor">
+                                    :bordercolor="$tag->bordercolor"
+                                    class="transition hover:scale-105 odd:rotate-3 even:-rotate-3 hover:rotate-0 hover:shadow-lg"
+                    >
                         {{ $tag->title }}
                     </x-tags.display>
                 @endforeach

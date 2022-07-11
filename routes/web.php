@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 Route::resource('snippets', \App\Http\Controllers\SnippetsController::class)
     ->only(['index', 'show']);
 Route::resource('tags', \App\Http\Controllers\TagsController::class)
+    ->parameters(['tags' => 'tag:title'])
     ->only(['index', 'show']);
 
 require __DIR__ . '/auth.php';
