@@ -17,11 +17,13 @@ class Index extends Component
     public string $tag = '';
     public string $search = '';
     public array $tags = [];
+    public string $dir = 'desc';
 
     protected $queryString = [
         'tag' => ['except' => ''],
         'search' => ['except' => ''],
         'page' => ['except' => 1],
+        'dir' => ['except' => 'desc'],
     ];
 
     public function mount()
@@ -43,7 +45,7 @@ class Index extends Component
                     $query->where('tags.title', '=', $value);
                 });
             })
-            ->orderBy('snippets.published_at', 'desc')
+            ->orderBy('snippets.published_at', $this->dir)
             ->paginate();
         $selectedTag = collect($this->tags)->first(fn($tag) => $tag['title'] === $this->tag);
 
