@@ -35,6 +35,7 @@ class Index extends Component
             ->join('snippets', 'snippets.id', '=', 'snippet_tag.snippet_id')
             ->groupBy('tags.id', 'tags.title', 'tags.logo')
             ->withCount('snippets')
+            ->having('snippets_count', '>', 0)
             ->when($this->search, function (Builder $query, string $value) {
                 $query->whereRaw('LOWER(tags.title) like ?', Str::lower("%{$value}%"));
             })

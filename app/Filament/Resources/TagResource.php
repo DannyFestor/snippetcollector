@@ -78,6 +78,8 @@ class TagResource extends Resource
                 Tables\Columns\TextColumn::make('bordercolor')
                     ->sortable()
                 ,
+                Tables\Columns\TextColumn::make('snippets_count')
+                    ->counts('snippets'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

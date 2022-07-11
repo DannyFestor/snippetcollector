@@ -1,5 +1,5 @@
-<div class="p-6 border-b border-gray-200 flex flex-col gap-4">
-    <div class="bg-white flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+<div class="w-full p-6 border-b border-gray-200 flex flex-col gap-4">
+    <div class="w-full flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
         <label x-data="{ search: @entangle('search') }" class="flex items-center gap-4">
             Search
             <input x-model.debounce.500ms="search"
@@ -51,7 +51,7 @@
 
     <div class="grid flex flex-col gap-4">
         @foreach($snippets as $snippet)
-            <div class="flex flex-col md:flex-row md:flex-wrap p-2 rounded bg-white shadow-lg">
+            <div class="w-full flex flex-col md:flex-row md:flex-wrap p-2 rounded bg-white shadow-lg">
                 <a href="{{ route('snippets.show', $snippet) }}"
                    class="block flex flex-col gap-2 w-full md:w-3/4 p-2 hover:bg-slate-200 transition rounded hover:scale-105 hover:shadow-xl hover:-rotate-1"
                 >

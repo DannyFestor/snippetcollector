@@ -28,7 +28,14 @@ class Index extends Component
 
     public function mount()
     {
-        $this->tags = Tag::select(['id', 'title', 'color', 'bgcolor', 'bordercolor'])->get()->toArray();
+        $this->tags = Tag::query()
+            ->select(['id', 'title', 'color', 'bgcolor', 'bordercolor'])
+            ->withCount('snippets')
+            ->having(
+                'snippets_count',
+                '>',
+                0
+            )->get()->toArray();
     }
 
     public function render()
@@ -47,7 +54,7 @@ class Index extends Component
             })
             ->orderBy('snippets.published_at', $this->dir)
             ->paginate();
-        $selectedTag = collect($this->tags)->first(fn($tag) => $tag['title'] === $this->tag);
+        $selectedTag = collect($this->tags)->first(fn($tag) => $tag[ 'title' ] === $this->tag);
 
         return view('livewire.snippets.index', compact('snippets', 'selectedTag'));
     }
