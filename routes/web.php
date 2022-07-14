@@ -21,6 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::resource('collections', \App\Http\Controllers\CollectionsController::class)
+    ->only(['index', 'show']);
 Route::resource('snippets', \App\Http\Controllers\SnippetsController::class)
     ->only(['index', 'show']);
 Route::resource('tags', \App\Http\Controllers\TagsController::class)

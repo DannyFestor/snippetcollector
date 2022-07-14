@@ -53,6 +53,9 @@ class SnippetResource extends Resource
                     ->sortable()
                     ->searchable()
                 ,
+                Tables\Columns\TextColumn::make('collection.title')
+                    ->sortable()
+                ,
                 Tables\Columns\TextColumn::make('published_at')
                     ->sortable()
                     ->dateTime(),
@@ -67,6 +70,11 @@ class SnippetResource extends Resource
                 Tables\Filters\SelectFilter::make('user_id')
                     ->label('User')
                     ->relationship('user', 'email')
+                    ->searchable()
+                ,
+                Tables\Filters\SelectFilter::make('collection_id')
+                    ->label('Collection')
+                    ->relationship('collection', 'title')
                     ->searchable()
                 ,
                 Tables\Filters\TernaryFilter::make('is_published')

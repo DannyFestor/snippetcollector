@@ -35,6 +35,10 @@
                     </x-nav-link>
                 @endauth
 
+                <x-nav-link :href="route('collections.index')" :active="request()->routeIs('collections.*')">
+                    {{ __('Collections') }}
+                </x-nav-link>
+
                 <x-nav-link :href="route('snippets.index')" :active="request()->routeIs('snippets.*')">
                     {{ __('Snippets') }}
                 </x-nav-link>

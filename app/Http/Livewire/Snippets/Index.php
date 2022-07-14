@@ -42,7 +42,7 @@ class Index extends Component
     {
         $snippets = Snippet::query()
             ->with(['tags', 'user:id,name,email'])
-            ->select(['id', 'user_id', 'title', 'description', 'published_at'])
+            ->select(['id', 'user_id', 'title', 'published_at'])
             ->published()
             ->when($this->search, function (Builder $query, string $value) {
                 $query->whereRaw('LOWER(snippets.title) like ?', Str::lower("%{$value}%"));
