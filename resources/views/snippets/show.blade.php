@@ -31,8 +31,12 @@
                 </div>
             @endforeach
         </div>
-        <div x-show="activeTab === 4" x-cloak x-collapse class="prose w-full mx-auto line-numbers">
-            Example
+        <div x-show="activeTab === 4" x-cloak x-collapse class="prose w-full mx-auto line-numbers rounded">
+            {!! $snippet->example !!}
+
+            @push('styles')
+                {!! $snippet->styles !!}
+            @endpush
         </div>
 
        {{-- TODO: Snippet Video, Snippet Code, Snippet Example... Tabs? --}}
