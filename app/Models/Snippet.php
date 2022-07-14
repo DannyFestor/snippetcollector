@@ -55,6 +55,14 @@ class Snippet extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function collection() : BelongsTo
+    {
+        return $this->belongsTo(Collection::class);
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function tags() : BelongsToMany

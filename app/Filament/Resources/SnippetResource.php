@@ -28,9 +28,12 @@ class SnippetResource extends Resource
                             ->relationship('user', 'email')
                             ->searchable()
                             ->required(),
-
+                        Forms\Components\Select::make('collection_id')
+                            ->relationship('collection', 'title')
+                            ->searchable()
+                            ->required(),
                         Forms\Components\DateTimePicker::make('published_at'),
-                    ])->columns(),
+                    ])->columns(3),
                 Forms\Components\Card::make([
                     Forms\Components\TextInput::make('title')
                         ->required()
