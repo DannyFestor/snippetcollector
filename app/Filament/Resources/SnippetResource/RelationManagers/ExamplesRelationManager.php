@@ -8,6 +8,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ExamplesRelationManager extends RelationManager
@@ -51,7 +52,11 @@ class ExamplesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable()
+                ->sortable(),
+                Tables\Columns\TextColumn::make('order_column')
+                ->sortable(),
             ])
             ->filters([
                 //
@@ -62,9 +67,14 @@ class ExamplesRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('up')
+                    ->action(fn (Model $record) => $record->moveOrderUp()),
+                Tables\Actions\Action::make('down')
+                    ->action(fn (Model $record) => $record->moveOrderDown()),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-            ]);
+            ])
+            ->defaultSort('order_column');
     }
 }

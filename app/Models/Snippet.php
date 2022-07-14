@@ -11,10 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Parser\MarkdownParser;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class Snippet extends Model
+class Snippet extends Model implements Sortable
 {
     use HasFactory;
+    use SortableTrait;
 
     protected $fillable = [
         'user_id',
@@ -28,6 +31,11 @@ class Snippet extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function buildSortQuery()
+    {
+        return static::query()->where('collection_id', $this->collection_id);
+    }
 
     protected function markdownDescription() : Attribute
     {

@@ -25,7 +25,9 @@ class SnippetsController extends Controller
             'files' => function (HasMany $query) {
                 $query->orderBy('files.filename');
             },
-            'examples'
+            'examples' => function (HasMany $query) {
+                $query->orderBy('order_column');
+            }
         ]);
         return view('snippets.show', compact('snippet'));
     }

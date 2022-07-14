@@ -17,13 +17,16 @@ class SnippetsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    public static function table(Table $table): Table
+    public static function table(Table $table) : Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('order_column')
+                    ->sortable()
+                ,
             ])
             ->filters([
                 //
@@ -35,9 +38,14 @@ class SnippetsRelationManager extends RelationManager
                     ->url(fn(Model $record) => route('filament.resources.snippets.edit', $record))
                 ,
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('up')
+                    ->action(fn(Model $record) => $record->moveOrderUp()),
+                Tables\Actions\Action::make('down')
+                    ->action(fn(Model $record) => $record->moveOrderDown()),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-            ]);
+            ])
+            ->defaultSort('order_column');
     }
 }

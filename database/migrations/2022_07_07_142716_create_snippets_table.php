@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->text('description');
             $table->string('video')->nullable();
             $table->dateTime('published_at')->nullable();
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
     }

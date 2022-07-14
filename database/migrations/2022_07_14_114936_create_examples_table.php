@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->text('implementation');
             $table->text('styles')->nullable();
             $table->text('scripts')->nullable();
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
     }
