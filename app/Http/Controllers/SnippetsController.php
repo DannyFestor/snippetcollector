@@ -21,9 +21,12 @@ class SnippetsController extends Controller
         if (!$snippet->published_at || $snippet->published_at->gt(now())) {
             abort(404);
         }
-        $snippet->load(['files' => function (HasMany $query) {
-            $query->orderBy('files.filename');
-        }]);
+        $snippet->load([
+            'files' => function (HasMany $query) {
+                $query->orderBy('files.filename');
+            },
+            'examples'
+        ]);
         return view('snippets.show', compact('snippet'));
     }
 }

@@ -12,9 +12,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->text('example')->nullable()->comment('code that is executed on page');
-            $table->string('scripts')->nullable();
-            $table->string('styles')->nullable();
+            $table->string('video')->nullable();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });

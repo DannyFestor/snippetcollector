@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             SnippetSeeder::class,
+            ExampleSeeder::class,
             TagSeeder::class,
             SnippetTagSeeder::class,
             FileSeeder::class,

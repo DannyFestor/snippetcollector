@@ -31,12 +31,6 @@ class SnippetSeeder extends Seeder
 echo 'this is cool';
 ```
 MARKDOWN,
-                'example' => <<<MARKDOWN
-```php
-<?php
-echo 'this is cool';
-```
-MARKDOWN,
                 'published_at' => now(),
             ]);
         $users->each(fn(User $user) => Snippet::factory(10)->create(['user_id' => $user->id]));

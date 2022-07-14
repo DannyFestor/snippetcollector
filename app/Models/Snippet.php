@@ -20,9 +20,6 @@ class Snippet extends Model
         'user_id',
         'title',
         'description',
-        'example',
-        'scripts',
-        'styles',
         'published_at',
     ];
 
@@ -71,5 +68,13 @@ class Snippet extends Model
     public function files() : HasMany
     {
         return $this->hasMany(File::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function examples() : HasMany
+    {
+        return $this->hasMany(Example::class);
     }
 }

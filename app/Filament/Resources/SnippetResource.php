@@ -18,29 +18,30 @@ class SnippetResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-scissors';
 
-    public static function form(Form $form): Form
+    public static function form(Form $form) : Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'email')
-                    ->searchable()
-                    ->required(),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\MarkdownEditor::make('description')
-                    ->required(),
-                Forms\Components\Textarea::make('example'),
-                Forms\Components\Textarea::make('scripts')
-                    ->hint('Additional scripts if needed'),
-                Forms\Components\Textarea::make('styles')
-                    ->hint('Additional styles if needed'),
-                Forms\Components\DateTimePicker::make('published_at'),
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Select::make('user_id')
+                            ->relationship('user', 'email')
+                            ->searchable()
+                            ->required(),
+
+                        Forms\Components\DateTimePicker::make('published_at'),
+                    ])->columns(),
+                Forms\Components\Card::make([
+                    Forms\Components\TextInput::make('title')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\MarkdownEditor::make('description')
+                        ->required(),
+                ]),
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Table $table) : Table
     {
         return $table
             ->columns([
@@ -71,8 +72,8 @@ class SnippetResource extends Resource
                     ->trueLabel('Only Published')
                     ->falseLabel('Only Unpublished')
                     ->queries(
-                        true: fn (Builder $query) => $query->whereNotNull('snippets.published_at'),
-                        false: fn (Builder $query) => $query
+                        true: fn(Builder $query) => $query->whereNotNull('snippets.published_at'),
+                        false: fn(Builder $query) => $query
                             ->whereNull('snippets.published_at')
                             ->orWhere('snippets.published_at', '<=', now())
                         ,
@@ -87,16 +88,17 @@ class SnippetResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
+    public static function getRelations() : array
     {
         return [
             RelationManagers\FilesRelationManager::class,
+            RelationManagers\ExamplesRelationManager::class,
             RelationManagers\TagsRelationManager::class,
             RelationManagers\UserRelationManager::class,
         ];
     }
 
-    public static function getPages(): array
+    public static function getPages() : array
     {
         return [
             'index' => Pages\ListSnippets::route('/'),
